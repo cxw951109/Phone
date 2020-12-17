@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts</title>
+    <script type="text/javascript" src="./echarts.min.js"></script>
+    <style type="text/css">
+        body {margin:0; padding:0; overflow:hidden;height: 100%}
+    </style>
+</head>
+<body>
+    <div style="height: 100%;display: flex;flex-direction: row;justify-content: space-between">
+        <div style="width: 49%;height: 100%;display: flex;justify-content: space-between;flex-direction: column">
+            <div style="background-color: white;width:100%;height: 30%;border-radius:3%;border: black 2px solid ">
+                <div id="container" style="width:100%;height: 100%"></div>
+            </div>
+            <div style="background-color: white;width:100%;height: 30%;border-radius:3%;border: black 2px solid ">
+                <div id="container1" style="width:100%;height: 100%"></div>
+            </div>
+            <div style="background-color: white;width:100%;height: 30%;border-radius:3%;border: black 2px solid ">
+                <div id="container2" style="width:100%;height: 115%"></div>
+            </div>
+        </div>
+        <div style="width: 49%;height: 100%;display: flex;justify-content: space-between;flex-direction: column">
+            <div style="background-color: white;height: 45%;overflow: hidden;border-radius:3%;border: black 2px solid">
+                <div id="container3" style="width:100%;height: 100%"></div>
+            </div>
+            <div style="background-color: white;height: 45%;overflow: hidden;border-radius:3%;border: black 2px solid">
+                <div id="container4" style="width:100%;height: 100%"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="awebjs.js"></script>>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('container'));
+        var myChart1 = echarts.init(document.getElementById('container1'));
+        var myChart2 = echarts.init(document.getElementById('container2'));
+        var myChart3 = echarts.init(document.getElementById('container3'));
+        var myChart4 = echarts.init(document.getElementById('container4'));
+
+        option = {
+            // color:["#8fa6e0","#F56C6C"],
+            grid:{
+                bottom:'12%',
+                container:true
+            },
+            legend: {
+                data: ['杂质', '合格'],
+            },
+            xAxis: {
+                type: 'category',
+                data: ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+                name: '时',
+                nameTextStyle: {
+                    fontWeight:600,
+                    fontSize:18
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '数量',
+                nameTextStyle:{
+                    fontWeight:600,
+                    fontSize:18
+                },
+            },
+            tooltip:{
+                trigger:"axis"
+            },
+            series: [
+                {
+                    "name": '合格',
+                    "data": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+                    "type": 'line'
+                },
+                {
+                    "name": '杂质',
+                    "data": [2,3,6,8,9,8,6,43,4,5,7,8,9,5,3,57,8,9,5,3,3,4,5,7],
+                    "type": 'line'
+                }
+            ]
+        },
+        option1 = {
+            legend: {
+                orient: 'horizontal', // 'vertical'
+                x: '67%', // 'center' | 'left' | {number},
+                y: '80%', // 'center' | 'bottom' | {number}
+            },
+            graphic:{
+                type:'text',
+                left:'65%',
+                top:'25%',
+                style:{
+                    text:'',
+                    rich:{
+                        x:{
+                            textAlign:'center',
+                            fontSize:20,
+                        },
+                        y:{
+                            textAlign: 'center',
+                            fontSize:40,
+                            fontWeight:700,
+                        },
+                        z:{
+                            height:20
+                        }
+                    }
+                }
+            },
+            series:[
+                {
+                    type:'pie',
+                    center:['30%','50%'],
+                    radius:['40%','70%'],
+                    // color:["#8fa6e0","#F56C6C"],
+                    label:{
+                        normal:{
+                            show:true,
+                            formatter:'{c}',
+                            textStyle:{
+                                fontWeight:'normal',
+                                fontSize:15
+                            }
+                        }
+                    },
+                    data:[
+                        {"value": 10, "name": '合格'},
+                        {"value": 9, "name": '杂质'}
+                    ]
+                }
+            ]
+        },
+        option2 = {
+            // color:["#F56C6C"],
+            tooltip: {
+                show:true
+            },
+            legend:{
+                data:['数量']
+            },
+            xAxis: [{
+                type:'category',
+                data:["总数","合格品","杂质"]
+            }],
+            yAxis: [{
+                type:'value'
+            }],
+            series:[{
+                "name":"数量",
+                "type":"bar",
+                "data":[19,10,9]
+            }]
+        },
+        option3 = {
+            legend: {
+                orient: 'horizontal', // 'vertical'
+                x: '9%', // 'center' | 'left' | {number},
+                y: '80%', // 'center' | 'bottom' | {number}
+            },
+            graphic:{
+                type:"text",
+                left:'7%',
+                top: '25%',
+                style:{
+                  text:"",
+                  rich:{
+                    x:{
+                      textAlign:'center',
+                      fontSize:20,
+                    },
+                    y:{
+                      textAlign:'center',
+                      fontSize:40,
+                      fontWeight:700,
+                    },
+                    z:{
+                      height:20
+                    }
+                  }
+                }
+            },
+            series : [{
+                type: 'pie',
+                center:['70%','50%'],
+                radius: ['40%', '75%'],
+                // color:["#8fa6e0","#F56C6C"],
+                label : {
+                    normal : {
+                      show:true,
+                      // formatter: '{b}:{c} ({d}%)',
+                      formatter:'{c}',
+                      textStyle : {
+                        fontWeight : 'normal',
+                        fontSize : 15
+                      }
+                    }
+                },
+                data:[
+                    {"value": 10, "name": '合格'},
+                    {"value": 9, "name": '杂质'}
+                ]
+            }]
+        },
+        option4 = {
+            // color:["#8fa6e0","#F56C6C"],
+            grid: {
+                bottom: '3%',
+                containLabel: true
+            },
+            legend: {
+                data: ['杂质', '合格']
+            },
+            xAxis: {
+                type: 'category',   // 还有其他的type
+                data: ['1','2','3','4','5','6','7'],   // x轴数据
+                name: '天',   // x轴名称
+                nameTextStyle: {
+                  fontWeight: 600,
+                  fontSize: 18
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '数量',   // y轴名称
+                nameTextStyle: {
+                  fontWeight: 600,
+                  fontSize: 18
+                }
+            },
+            tooltip: {
+                trigger: 'axis'   // axis   item   none三个值
+            },
+            series: [
+                {
+                    "name": '合格',
+                    "data": [89,1,2,3,44,5,6],
+                    "type": 'line'
+                },
+                {
+                    "name": '杂质',
+                    "data": [9,5,33,3,4,50,7],
+                    "type": 'line'
+                }
+            ]
+        }
+
+        myChart.setOption(option);
+        myChart1.setOption(option1);
+        myChart2.setOption(option2);
+        myChart3.setOption(option3);
+        myChart4.setOption(option4);
+        function setValue(val1, val2, val3,val4,val5,val6,val7){
+            option.series[0].data = val1
+            option.series[1].data = val2
+            option1.series[0].data = val3
+            option2.series[0].data = val4
+            option3.series[0].data = val5
+            option4.series[0].data = val6
+            option4.series[1].data = val7
+            myChart.setOption(option)
+            myChart1.setOption(option1);
+            myChart2.setOption(option2);
+            myChart3.setOption(option3);
+            myChart4.setOption(option4);
+        }
+        window.addEventListener("resize", function () {
+          myChart.resize();
+          myChart1.resize();
+          myChart2.resize();
+          myChart3.resize();
+          myChart4.resize();
+        });
+        window.onload = function() {
+            new QWebChannel(qt.webChannelTransport, function (channel) {
+                window.printer= channel.objects.printer;  // 此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
+            });
+        };
+        function sendMes() {  // 调用python端的功能类的方法执行操作
+            printer.print('你收到一条网页发送的消息！')
+        }
+    </script>
+</body>
+</html>

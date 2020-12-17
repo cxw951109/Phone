@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./vue.js"></script>
+    <link rel="stylesheet" href="./element.css">
+    <script type="text/javascript" src="./element.js"></script>
+</head>
+<body>
+    <div>
+        <div id="app">
+            <div style="display: flex;flex-direction: row;height: 70px;align-items: center;padding-left:80%;padding-bottom: 20px" >
+                <div style="padding-right: 20px">
+                    <el-input id ='input' v-model="input" placeholder="请输入内容" placeholder="请输入模板名称" size="medium" style="min-width: 100px"></el-input>
+                </div>
+                <el-row>
+                    <el-button type="primary" size="medium" onclick="sendMes()" plain>搜索</el-button>
+                </el-row>
+            </div>
+
+            <el-table
+              :data="tableData"
+              border
+              :row-style="{height:'80px'}"
+              style="width: 100%;font-size: 20px"
+              :header-cell-style="{textAlign: 'center'}"
+              :header-row-style="{height: '80px'}"
+              :cell-style="{textAlign: 'center'}">
+              <el-table-column
+                prop="standard_name"
+                label="膜片名称">
+              </el-table-column>
+              <el-table-column
+                prop="created_time"
+                label="日期">
+              </el-table-column>
+              <el-table-column
+                prop="positive_url"
+                label="正面图片">
+              </el-table-column>
+              <el-table-column
+                prop="back_url"
+                label="背面图片">
+              </el-table-column>
+              <el-table-column label="操作">
+                  <template slot-scope="scope">
+                       <el-button type="danger" size="medium" @click="del(scope.row.id)" plain>删除</el-button>
+                  </template>
+                </el-table-column>
+            </el-table>
+<!--            <el-pagination style="padding-top: 20px;justify-content:center;display: flex"-->
+<!--               background-->
+<!--               prev-text ='上一页'-->
+<!--               next-text ='下一页'-->
+<!--               layout="prev, pager, next"-->
+<!--               :total="page_count"-->
+<!--               @current-change="get_mes"-->
+<!--               :current-page.sync="pageNum">-->
+<!--            </el-pagination>-->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="awebjs.js"></script>
+<script>
+    var vim =new Vue({
+        el: '#app',
+        data(){
+            return {
+                  // page_count:21,
+                  tableData: [{'id': 1, 'standard_name': 'iphone模板', 'types': 'S1', 'positive_url': '', 'back_url': '', 'created_time': '2020-12-11 23:18:33'}, {'id': 2, 'standard_name': '华为模板', 'types': 'H1', 'positive_url': '', 'back_url': '', 'created_time': '2020-12-11 23:19:19'}, {'id': 3, 'standard_name': '华为模板2', 'types': 'S2', 'positive_url': '', 'back_url': '', 'created_time': '2020-12-11 23:27:41'}, {'id': 4, 'standard_name': 'oppo模板', 'types': 'K1', 'positive_url': '', 'back_url': '', 'created_time': '2020-12-11 23:28:02'}, {'id': 5, 'standard_name': '手机', 'types': 'S', 'positive_url': '', 'back_url': '', 'created_time': '2020-12-15 10:00:48'}]
+            }
+        },
+        methods: {
+          del(id) {
+            window.printer.print(Number(id))
+          }
+        },
+    })
+    window.onload = function() {
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+            window.printer= channel.objects.printer;
+        });
+    };
+    function sendMes() {
+        var value = document.getElementById("input").value
+        printer.print(value)
+    }
+    function uptext(msg,num) {
+        vim.tableData =JSON.parse(msg)
+        vim.page_count =JSON.parse(num)
+        // document.getElementById('test').innerHTML=msg;
+    }
+
+</script>
+</html>
